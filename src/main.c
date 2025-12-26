@@ -3,8 +3,8 @@
 #include "./../include/ui_draw.h"
 
 int main() {
-	const int screenWidth = 800;
-	const int screenHeight = 450;
+	const int screenWidth = 1000;
+	const int screenHeight = 550;
 
 	InitWindow(screenWidth, screenHeight, "Raylib Player Example");
 
@@ -25,6 +25,14 @@ int main() {
 
 		if (IsKeyPressed(KEY_SPACE)) {
          TogglePlayPause(&myPlayer);
+      }
+
+		if(IsKeyDown(KEY_UP)) {
+         IncreaseVolume(&myPlayer);
+      }
+
+      if(IsKeyDown(KEY_DOWN)) {
+         DecreaseVolume(&myPlayer);
       }
 
       UpdatePlayer(&myPlayer);

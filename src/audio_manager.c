@@ -5,7 +5,7 @@ void InitPlayer(MusicPlayer* player) {
 	InitAudioDevice();
 	player->isLoaded = false;
 	player->isPlaying = false;
-	player->volume = 1.0f;
+	player->volume = 50;
 }
 
 void LoadMusic(MusicPlayer* player, const char* filePath) {
@@ -18,6 +18,7 @@ void LoadMusic(MusicPlayer* player, const char* filePath) {
 	player->isLoaded = true;
 	player->isPlaying = true;
 
+	SetMusicVolume(player->currentMusic, player->volume / 100.0f);
 	const char* fileName = GetFileName(filePath);
 
 	strncpy(player->songTitle, fileName, 255);
@@ -44,4 +45,16 @@ void TogglePlayPause(MusicPlayer* player) {
 void ClosePlayer(MusicPlayer* player) {
 	if (player->isLoaded) UnloadMusicStream(player->currentMusic);
    CloseAudioDevice();
+}
+
+void IncreaseVolume(MusicPlayer* player) {
+	player->volume += 1;
+	if(player->volume > 100) player->volume = 100;
+	SetMusicVolume(player->currentMusic, player->volume / 100.0f);
+}
+
+void DecreaseVolume(MusicPlayer* player) {
+	player->volume -= 1;
+	if(player->volume < 0) player->volume = 0;
+	SetMusicVolume(player->currentMusic, player->volume / 100.0f);
 }
